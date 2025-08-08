@@ -2,6 +2,9 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\PostController;
+
 
     Route::resource('users', 'UserController');
+    Route::resource('posts', 'PostController');
 

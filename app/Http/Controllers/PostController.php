@@ -1,21 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-class UserController extends Controller
+
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        User::all();
-        return response()->json([
-            'message' => 'Users retrieved successfully',
-            'data' => User::all()
-        ]);
+        $posts = Post::all();
+        return response()->json($posts);
     }
 
     /**
