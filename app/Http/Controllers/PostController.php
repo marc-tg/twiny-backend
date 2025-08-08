@@ -9,11 +9,12 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $posts = Post::all();
-        return response()->json($posts);
-    }
+public function index()
+{
+    $posts = Post::with('user')->get();
+    return response()->json($posts);
+}
+
 
     /**
      * Store a newly created resource in storage.
