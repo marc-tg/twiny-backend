@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends 
+class User extends Model 
 {
     public $incrementing = true;
     protected $primaryKey = 'id';

@@ -2,11 +2,11 @@
 
 return [
 
-    'paths' => ['api/*'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:4200'],
+    'allowed_origins' => ['*'],  // <- Aquí puedes poner '*' para permitir todos los orígenes o poner los orígenes específicos
 
     'allowed_origins_patterns' => [],
 
@@ -19,3 +19,4 @@ return [
     'supports_credentials' => false,
 
 ];
+
