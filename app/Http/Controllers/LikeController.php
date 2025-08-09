@@ -20,32 +20,16 @@ class LikeController extends Controller
 
         
     }
+public function store($idUser, $idPost)
+{
+    $like = Like::create([
+        'user_id' => $idUser,
+        'post_id' => $idPost,
+    ]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
-            'post_id' => 'required|exists:posts,id',
-        ]);
+    return response()->json($like, 201);
+}
 
-        // Validate the request data
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
-        $like = Like::create([
-            'user_id' => $request->user_id,
-            'post_id' => $request->post_id,
-        ]);
-
-        $like->save();
-        return response()->json($like, 201);
-
-    }
 
     /**
      * Display the specified resource.
@@ -90,7 +74,7 @@ class LikeController extends Controller
     $exists = Like::where('user_id', $idUser)
         ->where('post_id', $idPost)
         ->exists();
-    
+
     return response()->json(['hasLike' => $exists]);
 }
 

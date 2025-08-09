@@ -12,3 +12,4 @@ use App\Http\Controllers\LikeController;
 Route::get('likes/has/{idUser}/{idPost}', [LikeController::class, 'hasLike']);
     
     Route::resource('likes', 'LikeController');
+Route::post('likes/{idUser}/{idPost}', [LikeController::class, 'store']);
