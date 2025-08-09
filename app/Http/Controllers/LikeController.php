@@ -14,7 +14,11 @@ class LikeController extends Controller
      */
     public function index()
     {
-        //
+        
+        $likes = Like::with(['user', 'post'])->get();
+        return response()->json($likes);
+
+        
     }
 
     /**
@@ -22,19 +26,42 @@ class LikeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|exists:users,id',
+            'post_id' => 'required|exists:posts,id',
+        ]);
+
+        // Validate the request data
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $like = Like::create([
+            'user_id' => $request->user_id,
+            'post_id' => $request->post_id,
+        ]);
+
+        $like->save();
+        return response()->json($like, 201);
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $idUser, string $idPost)
     {
-        $like = Like::with(['user', 'post'])->find($id);
-        if (!$like) {
-            return response()->json(['message' => 'Like not found'], 404);
-        }
-        return response()->json($like);
+       $like = Like::with(['user', 'post'])
+        ->where('user_id', $idUser)
+        ->where('post_id', $idPost)
+        ->first();
+
+    if (!$like) {
+        return response()->json(['message' => 'Like not found'], 404);
+    }
+
+    return response()->json($like);
 
     }
 
@@ -43,7 +70,8 @@ class LikeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+    
+    
     }
 
     /**
@@ -51,6 +79,19 @@ class LikeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $like = Like::find($id);
+        $like->delete();
+        return response()->json(['message' => 'Like deleted successfully']);
+
     }
+
+    public function hasLike(string $idUser, string $idPost)
+{
+    $exists = Like::where('user_id', $idUser)
+        ->where('post_id', $idPost)
+        ->exists();
+    
+    return response()->json(['hasLike' => $exists]);
+}
+
 }

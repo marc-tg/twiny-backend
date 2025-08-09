@@ -7,4 +7,8 @@ use App\Http\Controllers\LikeController;
 
     Route::resource('users', 'UserController');
     Route::resource('posts', 'PostController');
-    Route::get('likes/{id}', [LikeController::class, 'show']);
+    
+// routes/api.php
+Route::get('likes/has/{idUser}/{idPost}', [LikeController::class, 'hasLike']);
+    
+    Route::resource('likes', 'LikeController');
