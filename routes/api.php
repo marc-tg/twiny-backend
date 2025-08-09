@@ -13,3 +13,4 @@ Route::get('likes/has/{idUser}/{idPost}', [LikeController::class, 'hasLike']);
     
     Route::resource('likes', 'LikeController');
 Route::post('likes/{idUser}/{idPost}', [LikeController::class, 'store']);
+Route::delete('likes/{idUser}/{idPost}', [LikeController::class, 'destroy']);

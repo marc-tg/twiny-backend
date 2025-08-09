@@ -61,9 +61,11 @@ public function store($idUser, $idPost)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $idUser, string $idPost)
     {
-        $like = Like::find($id);
+        $like = Like::where('user_id', $idUser)
+            ->where('post_id', $idPost)
+            ->first();
         $like->delete();
         return response()->json(['message' => 'Like deleted successfully']);
 
