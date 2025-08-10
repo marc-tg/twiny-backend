@@ -72,4 +72,28 @@ class UserController extends Controller
             'token_type' => 'Bearer',
         ], 200);
     }
+
+    public function register(Request $request)
+    {
+    $request->validate([
+        'username' => 'required|string|unique:users,username',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|string|', 
+    ]);
+
+    $user = User::create([
+        'name' => $request->name,
+        'username' => $request->username,
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+        'avatar' => $request->avatar ?? '', // Optional field
+        'bio' => $request->bio ?? '', // Optional field
+    ]);
+
+    return response()->json([
+        'message' => 'User registered successfully',
+        'user' => $user
+    ], 201);
+}
+
 }

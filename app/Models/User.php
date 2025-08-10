@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable; // <- cambia aquí
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
-class User extends Model 
+use Laravel\Sanctum\HasApiTokens;  // <--- Importa esto
+
+class User extends Authenticatable
 {
-        use HasFactory, Notifiable; // <-- HasFactory aquí
+    use HasApiTokens, HasFactory, Notifiable;  // <--- Usa el trait aquí
 
     public $incrementing = true;
     protected $primaryKey = 'id';
@@ -15,7 +17,4 @@ class User extends Model
     public $timestamps = false;
 
     protected $fillable = ['name', 'username', 'email', 'password', 'bio'];
-
-   
-
 }
